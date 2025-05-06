@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Connexion</title>
     <style>
         body {
             background-image: url('../../images/travel.jpg');
@@ -24,10 +25,11 @@
   background: #F8F9FD;
   background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
   border-radius: 40px;
-  padding: 25px 35px;
+  padding: 15px 35px;
   border: 3px solid #ffca00;
   box-shadow:#85bdd7 0px 30px 30px -20px;
   margin-left: 50px;
+  margin-top: -25px;
   
 }
 
@@ -38,8 +40,14 @@
   color:#ffca00 ;
 }
 
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
 .form {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .form .input {
@@ -166,20 +174,90 @@
  border-radius: 5px;
  margin: 10px auto;
         }
+
+
+        .file-input-container {
+  position: relative;
+  margin-top: 15px;
+}
+
+.file-input-label {
+  display: block;
+  padding: 10px;
+  background-color: #f8f9fa;
+
+border: 1px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.file-input-label:hover {
+  border-color: #ffca00;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+
+ cursor: pointer;
+}
+
+.file-name {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="heading">Se connecter</div>
-    <form action="" class="form">
+    <div class="heading">Créer un compte</div>
+    <?php if (isset($_GET['error'])) { ?>
+            <p class="error"><?php echo $_GET['error']; ?></p>
+        <?php } ?>
+    <form action="insertion.php" class="form" method="POST">
+      <div class="flex">
+      <input required="" class="input" type="text" name="prenom" id="prenom" placeholder="Prenom">
+      <input required="" class="input" type="text" name="nom" id="nom" placeholder="Nom">
+      </div>
       <input required="" class="input" type="email" name="email" id="email" placeholder="E-mail">
       <input required="" class="input" type="password" name="password" id="password" placeholder="Mot de passe">
-      <span class="forgot-password"><a href="#">Mot de passe oublié ?</a></span>
-      <input class="login-button" type="submit" value="Se connecter">
+      <input required="" class="input" type="text" name="role" id="role" placeholder="Role" style="display:none;" value="client" readonly>
+      <div class="file-input-container">
+        <label class="file-input-label">
+            <i class='bx bx-cloud-upload' style="font-size: 24px; color: #ffca00;"></i><br>
+            Choisir une photo
+            <input type="file" class="file-input" name="photo" accept="image/*" required>
+        </label>
+        <span class="file-name">Formats acceptés: JPG, PNG, JPEG, GIF</span>
+    </div>
+    
+      <input class="login-button" type="submit" value="Envoyer les informations">
       
     </form>
+    <script>
+// Afficher le nom du fichier sélectionné
+document.querySelector('.file-input').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'Aucun fichier sélectionné';
+    document.querySelector('.file-name').textContent = fileName;
+    
+    // Vérification de l'extension du fichier
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    if (!allowedExtensions.exec(fileName)) {
+        alert('Veuillez sélectionner un fichier image valide (JPG, PNG, GIF)');
+        e.target.value = '';
+        document.querySelector('.file-name').textContent = 'Formats acceptés: JPG, PNG, GIF';
+    }
+});
+</script>
     <div class="social-account-container">
-        <span class="title">Se connecter avec</span>
+        <span class="title">S'inscrire avec</span>
         <div class="social-accounts">
           <button class="social-button google">
             <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512">
@@ -197,11 +275,9 @@
           </button>
         </div>
       </div>
-      <span class="agreement"><a href="login.php">je n'ai pas de compte?</a></span>
+      <span class="agreement"><a href="login.php">Se connecter</a></span>
   </div>
-        <?php if (isset($_GET['error'])) { ?>
-            <p class="error"><?php echo $_GET['error']; ?></p>
-        <?php } ?>
+        
     </div>
 </body>
 </html>

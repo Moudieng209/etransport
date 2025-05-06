@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -551,7 +554,7 @@
                 </div>
 
                 <div class="auth-buttons">
-                    <a href="code/connexions/inscription.php" class="btn-login"><i class="fas fa-lock"></i> Connexion</a>
+                    <a href="code/connexions/login.php" class="btn-login"><i class="fas fa-lock"></i> Connexion</a>
                     <a href="#" class="btn-post">Réserver</a>
                 </div>
             </nav>
@@ -712,6 +715,8 @@
                         <option value="train">Train</option>
                         <option value="taxi">Taxi</option>
                         <option value="bateau">Bâteau</option>
+                        <option value="avion">Avion</option>
+                        <option value="navette">Navette</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -749,7 +754,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <script>
